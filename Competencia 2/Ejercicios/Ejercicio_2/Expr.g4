@@ -7,5 +7,5 @@ expr: EOF;
 //Ejercicos 2:
 
 NUM : [0-9]+;
-MAS : '-';
+MENOS : '-';
 WS  : [ \t\r\n]+ -> skip ;
