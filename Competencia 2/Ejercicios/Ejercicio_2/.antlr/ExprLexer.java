@@ -1,4 +1,4 @@
-// Generated from c:/Users/Jose Manuel/Documents/1_programas/Lenguajes y Automatas II/ANTLR/Competencia 2/Ejercicio_2/Expr.g4 by ANTLR 4.13.1
+// Generated from c:/Users/Jose Manuel/Documents/1_programas/Automatas II/Competencia 2/Ejercicios/Ejercicio_2/Expr.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -16,7 +16,7 @@ public class ExprLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		NUM=1, MAS=2, WS=3;
+		NUM=1, MENOS=2, WS=3;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -27,7 +27,7 @@ public class ExprLexer extends Lexer {
 
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"NUM", "MAS", "WS"
+			"NUM", "MENOS", "WS"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -40,7 +40,7 @@ public class ExprLexer extends Lexer {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "NUM", "MAS", "WS"
+			null, "NUM", "MENOS", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
