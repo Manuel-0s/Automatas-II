@@ -1,6 +1,9 @@
 # Importa ANTLR4 para funciones
 from antlr4 import *
 from ExprLexer import ExprLexer
+import sys
+
+input_stream = FileStream(sys.argv[1])
 
 lexer = ExprLexer(InputStream(input("? ")))
 
