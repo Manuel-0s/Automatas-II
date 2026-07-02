@@ -5,7 +5,7 @@ import sys
 
 input_stream = FileStream(sys.argv[1])
 
-lexer = ExprLexer(InputStream(input("? ")))
+lexer = ExprLexer(input_stream)
 
 tokens = CommonTokenStream(lexer)
 tokens.fill()
