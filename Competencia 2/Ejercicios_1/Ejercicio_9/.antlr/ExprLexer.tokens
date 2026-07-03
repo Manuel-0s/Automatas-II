@@ -1,0 +1,11 @@
+COND_IF=1
+PARENT_IZQ=2
+PARENT_DER=3
+IDT=4
+MAYOR=5
+NUM=6
+WS=7
+'if'=1
+'('=2
+')'=3
+'>'=5
