@@ -2,7 +2,7 @@ grammar Expr;
 
 root : expr EOF;
 
-expr: expr IGUAL NUM | IDT ;
+expr:IDT IGUAL expr | IDT | NUM;
 
 IDT : [a-zA-Z]+ ;
 IGUAL : '=' ;
