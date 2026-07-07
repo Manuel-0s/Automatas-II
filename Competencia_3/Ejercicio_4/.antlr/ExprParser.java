@@ -16,12 +16,12 @@ public class ExprParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		IF=1, IDT=2, MAYOR_QUE=3, NUM=4, WS=5;
+		IF=1, IDT=2, MAYOR=3, NUM=4, WS=5;
 	public static final int
-		RULE_root = 0, RULE_expr = 1;
+		RULE_root = 0, RULE_op_relacional = 1, RULE_expr = 2;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"root", "expr"
+			"root", "op_relacional", "expr"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -34,7 +34,7 @@ public class ExprParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "IF", "IDT", "MAYOR_QUE", "NUM", "WS"
+			null, "IF", "IDT", "MAYOR", "NUM", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -106,10 +106,40 @@ public class ExprParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(4);
+			setState(6);
 			expr();
-			setState(5);
+			setState(7);
 			match(EOF);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Op_relacionalContext extends ParserRuleContext {
+		public TerminalNode MAYOR() { return getToken(ExprParser.MAYOR, 0); }
+		public Op_relacionalContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_op_relacional; }
+	}
+
+	public final Op_relacionalContext op_relacional() throws RecognitionException {
+		Op_relacionalContext _localctx = new Op_relacionalContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_op_relacional);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(9);
+			match(MAYOR);
 			}
 		}
 		catch (RecognitionException re) {
@@ -126,12 +156,17 @@ public class ExprParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExprContext extends ParserRuleContext {
 		public TerminalNode IF() { return getToken(ExprParser.IF, 0); }
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
 		}
-		public TerminalNode MAYOR_QUE() { return getToken(ExprParser.MAYOR_QUE, 0); }
-		public TerminalNode NUM() { return getToken(ExprParser.NUM, 0); }
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
+		}
+		public Op_relacionalContext op_relacional() {
+			return getRuleContext(Op_relacionalContext.class,0);
+		}
 		public TerminalNode IDT() { return getToken(ExprParser.IDT, 0); }
+		public TerminalNode NUM() { return getToken(ExprParser.NUM, 0); }
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -140,29 +175,36 @@ public class ExprParser extends Parser {
 
 	public final ExprContext expr() throws RecognitionException {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_expr);
+		enterRule(_localctx, 4, RULE_expr);
 		try {
-			setState(13);
+			setState(18);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IF:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(7);
+				setState(11);
 				match(IF);
-				setState(8);
+				setState(12);
 				expr();
-				setState(9);
-				match(MAYOR_QUE);
-				setState(10);
-				match(NUM);
+				setState(13);
+				op_relacional();
+				setState(14);
+				expr();
 				}
 				break;
 			case IDT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(12);
+				setState(16);
 				match(IDT);
+				}
+				break;
+			case NUM:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(17);
+				match(NUM);
 				}
 				break;
 			default:
@@ -181,17 +223,20 @@ public class ExprParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0005\u0010\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
-		"\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0003\u0001\u000e\b\u0001\u0001\u0001"+
-		"\u0000\u0000\u0002\u0000\u0002\u0000\u0000\u000e\u0000\u0004\u0001\u0000"+
-		"\u0000\u0000\u0002\r\u0001\u0000\u0000\u0000\u0004\u0005\u0003\u0002\u0001"+
-		"\u0000\u0005\u0006\u0005\u0000\u0000\u0001\u0006\u0001\u0001\u0000\u0000"+
-		"\u0000\u0007\b\u0005\u0001\u0000\u0000\b\t\u0003\u0002\u0001\u0000\t\n"+
-		"\u0005\u0003\u0000\u0000\n\u000b\u0005\u0004\u0000\u0000\u000b\u000e\u0001"+
-		"\u0000\u0000\u0000\f\u000e\u0005\u0002\u0000\u0000\r\u0007\u0001\u0000"+
-		"\u0000\u0000\r\f\u0001\u0000\u0000\u0000\u000e\u0003\u0001\u0000\u0000"+
-		"\u0000\u0001\r";
+		"\u0004\u0001\u0005\u0015\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0002\u0002\u0007\u0002\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0001"+
+		"\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0001\u0002\u0003\u0002\u0013\b\u0002\u0001\u0002\u0000\u0000"+
+		"\u0003\u0000\u0002\u0004\u0000\u0000\u0013\u0000\u0006\u0001\u0000\u0000"+
+		"\u0000\u0002\t\u0001\u0000\u0000\u0000\u0004\u0012\u0001\u0000\u0000\u0000"+
+		"\u0006\u0007\u0003\u0004\u0002\u0000\u0007\b\u0005\u0000\u0000\u0001\b"+
+		"\u0001\u0001\u0000\u0000\u0000\t\n\u0005\u0003\u0000\u0000\n\u0003\u0001"+
+		"\u0000\u0000\u0000\u000b\f\u0005\u0001\u0000\u0000\f\r\u0003\u0004\u0002"+
+		"\u0000\r\u000e\u0003\u0002\u0001\u0000\u000e\u000f\u0003\u0004\u0002\u0000"+
+		"\u000f\u0013\u0001\u0000\u0000\u0000\u0010\u0013\u0005\u0002\u0000\u0000"+
+		"\u0011\u0013\u0005\u0004\u0000\u0000\u0012\u000b\u0001\u0000\u0000\u0000"+
+		"\u0012\u0010\u0001\u0000\u0000\u0000\u0012\u0011\u0001\u0000\u0000\u0000"+
+		"\u0013\u0005\u0001\u0000\u0000\u0000\u0001\u0012";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

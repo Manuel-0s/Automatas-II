@@ -2,7 +2,8 @@ grammar Expr;
 
 root : expr EOF;
 //15 + 3 * 2 
-expr: expr MAS expr MULT expr | NUM;
+op_aritmeticos: MAS | MULT;
+expr: expr op_aritmeticos expr op_aritmeticos expr | NUM;
 
 NUM : [0-9]+ ;
 MAS : '+' ;

@@ -10,13 +10,14 @@ else:
 
 def serializedATN():
     return [
-        4,1,4,22,2,0,7,0,2,1,7,1,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        1,1,1,1,5,1,17,8,1,10,1,12,1,20,9,1,1,1,0,1,2,2,0,2,0,0,20,0,4,1,
-        0,0,0,2,7,1,0,0,0,4,5,3,2,1,0,5,6,5,0,0,1,6,1,1,0,0,0,7,8,6,1,-1,
-        0,8,9,5,1,0,0,9,18,1,0,0,0,10,11,10,2,0,0,11,12,5,2,0,0,12,13,3,
-        2,1,0,13,14,5,3,0,0,14,15,3,2,1,3,15,17,1,0,0,0,16,10,1,0,0,0,17,
-        20,1,0,0,0,18,16,1,0,0,0,18,19,1,0,0,0,19,3,1,0,0,0,20,18,1,0,0,
-        0,1,18
+        4,1,4,26,2,0,7,0,2,1,7,1,2,2,7,2,1,0,1,0,1,0,1,1,1,1,1,2,1,2,1,2,
+        1,2,1,2,1,2,1,2,1,2,1,2,5,2,21,8,2,10,2,12,2,24,9,2,1,2,0,1,4,3,
+        0,2,4,0,1,1,0,2,3,23,0,6,1,0,0,0,2,9,1,0,0,0,4,11,1,0,0,0,6,7,3,
+        4,2,0,7,8,5,0,0,1,8,1,1,0,0,0,9,10,7,0,0,0,10,3,1,0,0,0,11,12,6,
+        2,-1,0,12,13,5,1,0,0,13,22,1,0,0,0,14,15,10,2,0,0,15,16,3,2,1,0,
+        16,17,3,4,2,0,17,18,3,2,1,0,18,19,3,4,2,3,19,21,1,0,0,0,20,14,1,
+        0,0,0,21,24,1,0,0,0,22,20,1,0,0,0,22,23,1,0,0,0,23,5,1,0,0,0,24,
+        22,1,0,0,0,1,22
     ]
 
 class ExprParser ( Parser ):
@@ -34,9 +35,10 @@ class ExprParser ( Parser ):
     symbolicNames = [ "<INVALID>", "NUM", "MAS", "MULT", "WS" ]
 
     RULE_root = 0
-    RULE_expr = 1
+    RULE_op_aritmeticos = 1
+    RULE_expr = 2
 
-    ruleNames =  [ "root", "expr" ]
+    ruleNames =  [ "root", "op_aritmeticos", "expr" ]
 
     EOF = Token.EOF
     NUM=1
@@ -79,10 +81,52 @@ class ExprParser ( Parser ):
         self.enterRule(localctx, 0, self.RULE_root)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 4
+            self.state = 6
             self.expr(0)
-            self.state = 5
+            self.state = 7
             self.match(ExprParser.EOF)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Op_aritmeticosContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def MAS(self):
+            return self.getToken(ExprParser.MAS, 0)
+
+        def MULT(self):
+            return self.getToken(ExprParser.MULT, 0)
+
+        def getRuleIndex(self):
+            return ExprParser.RULE_op_aritmeticos
+
+
+
+
+    def op_aritmeticos(self):
+
+        localctx = ExprParser.Op_aritmeticosContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 2, self.RULE_op_aritmeticos)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 9
+            _la = self._input.LA(1)
+            if not(_la==2 or _la==3):
+                self._errHandler.recoverInline(self)
+            else:
+                self._errHandler.reportMatch(self)
+                self.consume()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -109,11 +153,12 @@ class ExprParser ( Parser ):
                 return self.getTypedRuleContext(ExprParser.ExprContext,i)
 
 
-        def MAS(self):
-            return self.getToken(ExprParser.MAS, 0)
+        def op_aritmeticos(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(ExprParser.Op_aritmeticosContext)
+            else:
+                return self.getTypedRuleContext(ExprParser.Op_aritmeticosContext,i)
 
-        def MULT(self):
-            return self.getToken(ExprParser.MULT, 0)
 
         def getRuleIndex(self):
             return ExprParser.RULE_expr
@@ -125,14 +170,14 @@ class ExprParser ( Parser ):
         _parentState = self.state
         localctx = ExprParser.ExprContext(self, self._ctx, _parentState)
         _prevctx = localctx
-        _startState = 2
-        self.enterRecursionRule(localctx, 2, self.RULE_expr, _p)
+        _startState = 4
+        self.enterRecursionRule(localctx, 4, self.RULE_expr, _p)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 8
+            self.state = 12
             self.match(ExprParser.NUM)
             self._ctx.stop = self._input.LT(-1)
-            self.state = 18
+            self.state = 22
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,0,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -142,19 +187,19 @@ class ExprParser ( Parser ):
                     _prevctx = localctx
                     localctx = ExprParser.ExprContext(self, _parentctx, _parentState)
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                    self.state = 10
+                    self.state = 14
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
-                    self.state = 11
-                    self.match(ExprParser.MAS)
-                    self.state = 12
+                    self.state = 15
+                    self.op_aritmeticos()
+                    self.state = 16
                     self.expr(0)
-                    self.state = 13
-                    self.match(ExprParser.MULT)
-                    self.state = 14
+                    self.state = 17
+                    self.op_aritmeticos()
+                    self.state = 18
                     self.expr(3) 
-                self.state = 20
+                self.state = 24
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,0,self._ctx)
 
@@ -171,7 +216,7 @@ class ExprParser ( Parser ):
     def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
         if self._predicates == None:
             self._predicates = dict()
-        self._predicates[1] = self.expr_sempred
+        self._predicates[2] = self.expr_sempred
         pred = self._predicates.get(ruleIndex, None)
         if pred is None:
             raise Exception("No predicate with index:" + str(ruleIndex))
