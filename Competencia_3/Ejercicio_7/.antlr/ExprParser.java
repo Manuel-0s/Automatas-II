@@ -1,4 +1,4 @@
-// Generated from c:/Users/Jose Manuel/Documents/1_programas/Automatas II/Competencia_2/Ejercicios_1/Ejercicio_7/Expr.g4 by ANTLR 4.13.1
+// Generated from c:/Users/Jose Manuel/Documents/1_programas/Automatas II/Competencia_3/Ejercicio_7/Expr.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -18,10 +18,10 @@ public class ExprParser extends Parser {
 	public static final int
 		INT=1, IDT=2, IGUAL=3, NUM=4, WS=5;
 	public static final int
-		RULE_root = 0, RULE_expr = 1;
+		RULE_root = 0, RULE_tipo = 1, RULE_op_aritmetico = 2, RULE_expr = 3;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"root", "expr"
+			"root", "tipo", "op_aritmetico", "expr"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -106,9 +106,9 @@ public class ExprParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(4);
+			setState(8);
 			expr();
-			setState(5);
+			setState(9);
 			match(EOF);
 			}
 		}
@@ -124,8 +124,78 @@ public class ExprParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
+	public static class TipoContext extends ParserRuleContext {
+		public TerminalNode INT() { return getToken(ExprParser.INT, 0); }
+		public TipoContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_tipo; }
+	}
+
+	public final TipoContext tipo() throws RecognitionException {
+		TipoContext _localctx = new TipoContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_tipo);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(11);
+			match(INT);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Op_aritmeticoContext extends ParserRuleContext {
+		public TerminalNode IGUAL() { return getToken(ExprParser.IGUAL, 0); }
+		public Op_aritmeticoContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_op_aritmetico; }
+	}
+
+	public final Op_aritmeticoContext op_aritmetico() throws RecognitionException {
+		Op_aritmeticoContext _localctx = new Op_aritmeticoContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_op_aritmetico);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(13);
+			match(IGUAL);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
 	public static class ExprContext extends ParserRuleContext {
-		public TerminalNode EOF() { return getToken(ExprParser.EOF, 0); }
+		public TipoContext tipo() {
+			return getRuleContext(TipoContext.class,0);
+		}
+		public TerminalNode IDT() { return getToken(ExprParser.IDT, 0); }
+		public Op_aritmeticoContext op_aritmetico() {
+			return getRuleContext(Op_aritmeticoContext.class,0);
+		}
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode NUM() { return getToken(ExprParser.NUM, 0); }
 		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -134,12 +204,33 @@ public class ExprParser extends Parser {
 
 	public final ExprContext expr() throws RecognitionException {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_expr);
+		enterRule(_localctx, 6, RULE_expr);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(7);
-			match(EOF);
+			setState(21);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case INT:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(15);
+				tipo();
+				setState(16);
+				match(IDT);
+				setState(17);
+				op_aritmetico();
+				setState(18);
+				expr();
+				}
+				break;
+			case NUM:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(20);
+				match(NUM);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -154,13 +245,21 @@ public class ExprParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0005\n\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0001"+
-		"\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0000"+
-		"\u0000\u0002\u0000\u0002\u0000\u0000\u0007\u0000\u0004\u0001\u0000\u0000"+
-		"\u0000\u0002\u0007\u0001\u0000\u0000\u0000\u0004\u0005\u0003\u0002\u0001"+
-		"\u0000\u0005\u0006\u0005\u0000\u0000\u0001\u0006\u0001\u0001\u0000\u0000"+
-		"\u0000\u0007\b\u0005\u0000\u0000\u0001\b\u0003\u0001\u0000\u0000\u0000"+
-		"\u0000";
+		"\u0004\u0001\u0005\u0018\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0001\u0000\u0001\u0000"+
+		"\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0003"+
+		"\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0003\u0003"+
+		"\u0016\b\u0003\u0001\u0003\u0000\u0000\u0004\u0000\u0002\u0004\u0006\u0000"+
+		"\u0000\u0014\u0000\b\u0001\u0000\u0000\u0000\u0002\u000b\u0001\u0000\u0000"+
+		"\u0000\u0004\r\u0001\u0000\u0000\u0000\u0006\u0015\u0001\u0000\u0000\u0000"+
+		"\b\t\u0003\u0006\u0003\u0000\t\n\u0005\u0000\u0000\u0001\n\u0001\u0001"+
+		"\u0000\u0000\u0000\u000b\f\u0005\u0001\u0000\u0000\f\u0003\u0001\u0000"+
+		"\u0000\u0000\r\u000e\u0005\u0003\u0000\u0000\u000e\u0005\u0001\u0000\u0000"+
+		"\u0000\u000f\u0010\u0003\u0002\u0001\u0000\u0010\u0011\u0005\u0002\u0000"+
+		"\u0000\u0011\u0012\u0003\u0004\u0002\u0000\u0012\u0013\u0003\u0006\u0003"+
+		"\u0000\u0013\u0016\u0001\u0000\u0000\u0000\u0014\u0016\u0005\u0004\u0000"+
+		"\u0000\u0015\u000f\u0001\u0000\u0000\u0000\u0015\u0014\u0001\u0000\u0000"+
+		"\u0000\u0016\u0007\u0001\u0000\u0000\u0000\u0001\u0015";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
