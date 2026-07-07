@@ -1,4 +1,4 @@
-// Generated from c:/Users/Jose Manuel/Documents/1_programas/Automatas II/Competencia 2/Ejercicios_1/Ejercicio_2/Expr.g4 by ANTLR 4.13.1
+// Generated from c:/Users/Jose Manuel/Documents/1_programas/Automatas II/Competencia_2/Ejercicios_1/Ejercicio_1/Expr.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -16,7 +16,7 @@ public class ExprParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		NUM=1, MENOS=2, WS=3;
+		NUM=1, MAS=2, WS=3;
 	public static final int
 		RULE_root = 0, RULE_expr = 1;
 	private static String[] makeRuleNames() {
@@ -28,13 +28,13 @@ public class ExprParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, "'-'"
+			null, null, "'+'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "NUM", "MENOS", "WS"
+			null, "NUM", "MAS", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
