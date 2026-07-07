@@ -10,11 +10,10 @@ else:
 
 def serializedATN():
     return [
-        4,1,5,16,2,0,7,0,2,1,7,1,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,3,1,
-        14,8,1,1,1,0,0,2,0,2,0,0,14,0,4,1,0,0,0,2,13,1,0,0,0,4,5,3,2,1,0,
-        5,6,5,0,0,1,6,1,1,0,0,0,7,8,5,1,0,0,8,9,3,2,1,0,9,10,5,3,0,0,10,
-        11,5,4,0,0,11,14,1,0,0,0,12,14,5,2,0,0,13,7,1,0,0,0,13,12,1,0,0,
-        0,14,3,1,0,0,0,1,13
+        4,1,3,13,2,0,7,0,2,1,7,1,1,0,1,0,1,0,1,1,1,1,1,1,3,1,11,8,1,1,1,
+        0,0,2,0,2,0,0,11,0,4,1,0,0,0,2,10,1,0,0,0,4,5,3,2,1,0,5,6,5,0,0,
+        1,6,1,1,0,0,0,7,8,5,1,0,0,8,11,3,2,1,0,9,11,5,2,0,0,10,7,1,0,0,0,
+        10,9,1,0,0,0,11,3,1,0,0,0,1,10
     ]
 
 class ExprParser ( Parser ):
@@ -27,9 +26,9 @@ class ExprParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'if'", "<INVALID>", "'>'" ]
+    literalNames = [ "<INVALID>", "'print'" ]
 
-    symbolicNames = [ "<INVALID>", "IF", "IDT", "MAYOR_QUE", "NUM", "WS" ]
+    symbolicNames = [ "<INVALID>", "PRINT", "CADENA", "WS" ]
 
     RULE_root = 0
     RULE_expr = 1
@@ -37,11 +36,9 @@ class ExprParser ( Parser ):
     ruleNames =  [ "root", "expr" ]
 
     EOF = Token.EOF
-    IF=1
-    IDT=2
-    MAYOR_QUE=3
-    NUM=4
-    WS=5
+    PRINT=1
+    CADENA=2
+    WS=3
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -98,21 +95,15 @@ class ExprParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def IF(self):
-            return self.getToken(ExprParser.IF, 0)
+        def PRINT(self):
+            return self.getToken(ExprParser.PRINT, 0)
 
         def expr(self):
             return self.getTypedRuleContext(ExprParser.ExprContext,0)
 
 
-        def MAYOR_QUE(self):
-            return self.getToken(ExprParser.MAYOR_QUE, 0)
-
-        def NUM(self):
-            return self.getToken(ExprParser.NUM, 0)
-
-        def IDT(self):
-            return self.getToken(ExprParser.IDT, 0)
+        def CADENA(self):
+            return self.getToken(ExprParser.CADENA, 0)
 
         def getRuleIndex(self):
             return ExprParser.RULE_expr
@@ -125,24 +116,20 @@ class ExprParser ( Parser ):
         localctx = ExprParser.ExprContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_expr)
         try:
-            self.state = 13
+            self.state = 10
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [1]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 7
-                self.match(ExprParser.IF)
+                self.match(ExprParser.PRINT)
                 self.state = 8
                 self.expr()
-                self.state = 9
-                self.match(ExprParser.MAYOR_QUE)
-                self.state = 10
-                self.match(ExprParser.NUM)
                 pass
             elif token in [2]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 12
-                self.match(ExprParser.IDT)
+                self.state = 9
+                self.match(ExprParser.CADENA)
                 pass
             else:
                 raise NoViableAltException(self)

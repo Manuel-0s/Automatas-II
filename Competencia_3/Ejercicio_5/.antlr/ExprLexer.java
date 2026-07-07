@@ -1,4 +1,4 @@
-// Generated from c:/Users/Jose Manuel/Documents/1_programas/Automatas II/Competencia_2/Ejercicios_1/Ejercicio_5/Expr copy.g4 by ANTLR 4.13.1
+// Generated from c:/Users/Jose Manuel/Documents/1_programas/Automatas II/Competencia_3/Ejercicio_5/Expr.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -84,7 +84,7 @@ public class ExprLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Expr copy.g4"; }
+	public String getGrammarFileName() { return "Expr.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
