@@ -1,0 +1,10 @@
+PRINT=1
+CADENA=2
+PARENT_IZQ=3
+PARENT_DER=4
+PUNTO_COMA=5
+WS=6
+'print'=1
+'('=3
+')'=4
+';'=5
